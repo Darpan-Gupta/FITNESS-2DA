@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>Live camera output</div>
+    <!-- <div>
+        {{ correctness_checklist }}
+        {{ url_for('video_feed') }}
+    </div> -->
+    <div>
+        <img src="{{ url_for('video_feed') }}" alt="", width="20%">
+    </div>
+
+
+    <div id="feedback">data will be updated here</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+    <script>
+        console.log('hhhh')
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        console.log('ehllo working ', socket)
+
+        // socket.on('text_updated', function(data) {
+        //     // Update the frontend text with the received data
+        //     console.log(data.text)
+        //     document.getElementById('feedback').innerText = data.text;
+        // });
+        socket.on('text-update', data => {
+            document.getElementById('feedback').textContent = data.text;
+        });
+    </script>
+</body>
+</html>

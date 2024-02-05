@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Description</title>
+    <link rel="stylesheet" href="description.css" />
+    <script>
+      window.addEventListener("load", () => {
+        const posename = localStorage.getItem("posename");
+        console.log(posename);
+        poseheading = ["Warrior", "Tree", "Plank", "Downdog"];
+        posedesc = [
+         `starting from Tadasana, the feet are spread wide, the front foot is turned fully out, and the back foot
+           is turned in very slightly. The body remains facing forwards, so the hips remain in line with the feet,
+            the body sinks down into a lunge until the front knee is bent at a right angle, and the arms are extended 
+            fully with the palms down, at shoulder level. The gaze is directed straight forward over the front hand.
+            The warrior asanas are standing poses that utilize a wide, hip-opening stance. They should make you feel
+             strong, like a warrior preparing for battle. You can practice all five in series or use them separately
+              and as part of other sequences.Warrior 2 is often used in standard sequences, like sun salutation.
+               It’s a good move for most beginners and warms up the body for other, more challenging asanas.
+                It is also a useful transition asana for other poses. it Strengthen the Legs,Lengthen and Activate
+                 the Back.it make you feel strong, like a warrior preparing for battle`,
+        ];
+        title = document.querySelector(".heading");
+        desc=document.querySelector("#content-p")
+        console.log(title);
+        if (posename === "warrior") {
+          title.innerText = poseheading[0];
+          desc.innerText=posedesc[0];
+
+
+        }
+        if (posename === "tree") {
+          title.innerText = poseheading[1];
+        }
+        if (posename === "downdog") {
+          title.innerText = poseheading[3];
+        }
+        if (posename === "plank") {
+          title.innerText = poseheading[2];
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="description-section">
+        <div class="poseimg">
+          <img
+            src="download (1).jpeg"
+            loading="lazy"
+            width="500px"
+            height="550px"
+          />
+        </div>
+        <div class="pose-desc">
+          <h1 class="heading">dog pose</h1>
+          <div class="content">
+            <p id="content-p">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Consequatur assumenda iure cum officiis libero quasi ipsa
+              veritatis, dolorum omnis debitis laborum nisi sequi at in magnam
+              totam! Reprehenderit, suscipit temporibus sapiente asperiores,
+              unde quia voluptatum assumenda autem quam necessitatibus sunt?
+            </p>
+          </div>
+          <button class="btn" onclick="">Try</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

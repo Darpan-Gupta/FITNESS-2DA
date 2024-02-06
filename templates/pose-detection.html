@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/pose-detection.css' )}}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="referenceimg">
+                <p class="feedback" id="feedback">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius magnam minima ratione nobis sapiente? Eligendi voluptate omnis amet accusantium impedit.</p>
+                <!-- <p>Pose Name</p> -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+                <script>
+                    console.log('hhhh')
+                    var socket = io.connect('http://' + document.domain + ':' + location.port);
+                    console.log('ehllo working ', socket)
+
+                    var correct_pose_start_time = 0;
+                    var correct_pose_made = false;
+                    
+                    var current_correct_pose_time = 0;
+                    var max_correct_pose_time = 0;
+                    
+                    socket.on('text-update', data => {
+                        var feedback = data.text;
+                        
+                        if(feedback[0] == 'Correct Pose!!'){
+                            if(correct_pose_made){
+                                current_correct_pose_time = (new Date(Date()).getTime() -  correct_pose_start_time/1000) ;
+                            }
+                            else{
+                                correct_pose_made = true;
+                                correct_pose_start_time = new Date(Date()).getTime();
+                            }
+                        }
+                        else{
+                            if(correct_pose_made){
+                                correct_pose_made = false;
+                                max_correct_pose_time = Math.max(max_correct_pose_time, current_correct_pose_time);
+                                current_correct_pose_time = 0;
+                            }
+                        }
+                        document.getElementById('current_time').textContent = current_correct_pose_time;
+                        document.getElementById('max_time').textContent = max_correct_pose_time;
+                        
+
+                        document.getElementById('feedback').textContent = data.text;
+                    });
+                </script>
+            </div>
+
+            <div class="live-feed">
+                <div class="cameraparent">
+                    <img src="hero-sectionimage.png" class="refimg" width="200" height="200">
+                    <img src="{{ url_for('video_feed') }}" class="cameraout">
+                </div>
+
+                <div>current correct pose time: <span id="current_time"></span></div>
+                <div>max correct pose time: <span id="max_time"></span></div>
+               
+                
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Description</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/description.css')}}" />
+    <script>
+      window.addEventListener("load", () => {
+        const posename = localStorage.getItem("posename");
+        console.log(posename);
+        poseheading = [ "Downdog","Plank","Warrior", "Tree"];
+        posedesc = ["Downward Dog, or Adho Mukha Svanasana, is a foundational yoga pose that rejuvenates both body and mind. Begin on all fours, hands shoulder-width apart and knees hip-width apart. Exhale, lifting hips toward the ceiling, straightening arms and legs to form an inverted V-shape. Press palms firmly into the mat, fingers spread wide, grounding through fingertips and heels. Lengthen the spine, drawing shoulders away from ears while engaging core muscles. Keep neck relaxed, gaze towards thighs or navel. Feel the stretch along the back, hamstrings, calves, and shoulders. Breathe deeply, finding balance between strength and surrender in this energizing posture."
+       ,"The plank pose is a foundational yoga posture that strengthens the core, arms, and shoulders while improving overall stability. Begin in a push-up position, with hands directly beneath the shoulders and legs extended behind, toes tucked under. Engage the core muscles to maintain a straight line from head to heels, avoiding sagging or lifting of the hips. Keep the neck in line with the spine, gaze down toward the mat. Press firmly into the palms, spreading the fingers wide for stability. Breathe deeply and hold the pose for 30 seconds to a minute, gradually increasing duration as strength improves."
+       ,"Warrior Pose, or Virabhadrasana, is a foundational yoga posture embodying strength and resilience. Begin by standing tall, legs apart. Step one foot back, ensuring the front knee aligns with the ankle. Inhale deeply as you raise your arms overhead, palms facing each other. Engage your core and sink into a deep lunge, grounding the back foot firmly. Keep the spine long, shoulders relaxed. Gaze forward, finding a focal point to enhance balance and concentration. Feel the energy coursing through your body, igniting the warrior spirit within. Hold for several breaths, then repeat on the opposite side. Warrior Pose cultivates both physical and mental fortitude"
+       ,"Tree Pose, or Vrksasana in Sanskrit, embodies strength, balance, and tranquility. Begin by standing tall, grounding your feet firmly into the earth. Shift your weight onto one leg, lifting the opposite foot and placing it on the inner thigh or calf of the standing leg, avoiding the knee joint. Find your focal point, align your hips, and engage your core for stability. Extend your arms overhead, palms together or reaching skyward like branches. Breathe deeply, feeling rooted and reaching simultaneously. Maintain steady focus and grace, like a tree swaying gently in the breeze, finding harmony within body and mind."
+        ];
+        pose_procedure=[
+              `1. Start on all fours with hands under shoulders and knees under hips.
+              2. Lift hips toward the ceiling, straightening arms and legs to form an inverted V-shape.
+              3.Engage core muscles to support the spine and press palms firmly into the mat.
+              4. Keep heels pressing down while relaxing neck and gazing toward thighs or navel.
+              5. Hold for 5-10 breaths, then gently lower knees back to the mat to release.`,
+
+              `1. Begin in a tabletop position on your hands and knees, ensuring your wrists are directly under your shoulders and your knees under your hips.
+               2. Step your feet back one at a time, straightening your legs and aligning your heels with your hips. Your body should form a straight line from head to heels.
+               3. Engage your core muscles by drawing your navel toward your spine, keeping your spine neutral and avoiding arching or rounding.
+               4. Press firmly into your palms, spreading your fingers wide for stability. Ensure your shoulders are stacked directly over your wrists, avoiding sinking or pushing your hips too high.
+               5. Hold the plank pose for 20-30 seconds or longer, maintaining steady breathing and focusing on maintaining proper form and alignment throughout the entire body. Gradually increase the duration as your strength improves.`,
+                
+               `1. Starting Position: Begin standing at the front of your mat in Mountain Pose (Tadasana). Feet hip-width apart, arms relaxed by your sides, and gaze forward.
+                2. Step Back: Take a big step back with your left foot, keeping it firmly planted on the ground, toes pointing slightly outward. Keep your right foot in front, maintaining the stance's width.
+                3. Warrior Stance: Bend your right knee, ensuring it stays aligned over your ankle. Ground down through the outer edge of your left foot, keeping the leg straight and strong. Hips should face forward.
+                4. Arms Extended: Extend your arms parallel to the ground, reaching them away from each other. Palms can face down or up, depending on comfort. Keep your shoulders relaxed and away from your ears.
+                5. Gaze and Hold: Fix your gaze over your right fingertips, maintaining a steady focus. Hold the pose for several breaths, feeling the strength and stability in your legs. To release, straighten your right leg, step your left foot forward, and return to Mountain Pose before repeating on the opposite side.`,
+                
+               `1. Start by standing tall with your feet firmly rooted on the ground and arms relaxed by your sides.
+                2. Shift your weight onto your left foot, grounding firmly through the sole, and bring the sole of your right foot to rest on the inner thigh or calf of your left leg.
+                3. Find your balance as you engage your core muscles and lengthen your spine, imagining yourself growing taller like a tree reaching for the sky.
+                4. Bring your hands together at your heart center in a prayer position, or extend them overhead like branches swaying in the breeze.
+                5. Find a focal point to help steady your gaze and breathe deeply, maintaining your balance and alignment as you hold the pose for several breaths before switching sides.`
+
+        ]
+        title = document.querySelector(".heading");
+        desc=document.querySelector("#content-p");
+        procedure=document.querySelector('#procedure');
+        pose_img=document.getElementById("pose_img");
+        console.log(title);
+        if (posename === "downdog") {
+          title.innerText = poseheading[0];
+          desc.innerText=posedesc[0];
+          procedure.innerText=pose_procedure[0];
+          pose_img.src="{{ url_for('static', filename = 'images/downdog-pose.png') }}";
+
+
+
+        }
+        if (posename === "plank") {
+          title.innerText = poseheading[1];
+          desc.innerText=posedesc[1];
+          procedure.innerText=pose_procedure[1];
+          pose_img.src="{{ url_for('static', filename = 'images/plank-pose.png') }}";
+          
+        }
+        if (posename === "left_warrior") {
+          title.innerText = poseheading[2];
+          desc.innerText=posedesc[2];
+          procedure.innerText=pose_procedure[2];
+          pose_img.src="{{ url_for('static', filename = 'images/warrior-pose.png') }}";
+        }
+        if (posename === "left_tree") {
+          title.innerText = poseheading[3];
+          desc.innerText=posedesc[3];
+          procedure.innerText=pose_procedure[3];
+          pose_img.src="{{ url_for('static', filename = 'images/hero-sectionimage.png') }}";
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="description-section">
+        <div class="description-left">
+          <img
+            src="{{ url_for('static', filename = 'images/download (1).jpeg') }}"
+            loading="lazy"
+            width="500px"
+            height="500px"
+            id="pose_img"
+          />
+        </div>
+       <div class="description-right">
+        <div class="pose-desc">
+          <h1 class="heading"></h1>
+          <div class="content">
+            <p id="content-p">
+             
+            </p>
+            <br>
+            <p>Procedure:-</p>
+            <p id="procedure"></p>
+          
+      </div>
+    </div>
+    <button class="btn" onclick="try_pose()">Try</button>
+  </div>
+       </div>
+    </div>
+
+    <script>
+      function try_pose(){
+        window.location.href = "{{ url_for('posedetection') }}";
+      }
+    </script>
+  </body>
+</html>

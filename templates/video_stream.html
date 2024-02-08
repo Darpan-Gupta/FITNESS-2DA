@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>Choose Pose you want to practice</div>
+
+    <!-- <form action="/video" method="POST">
+
+        <button type="submit" onclick="HandlePose('downdog')" name = 'downdog'>Downdog</button>
+        <button type="submit" onclick="HandlePose('plank')" name = 'plank'>Plank</button>
+        <button type="submit" onclick="HandlePose('left_tree')" name = 'left_tree'>Left Tree</button>
+        <button type="submit" onclick="HandlePose('right_tree')" name = 'right_tree'>Right Tree</button>
+        <button type="submit" onclick="HandlePose('left_warrior')" name = 'left_warrior'>LeftWarrior</button>
+        <button type="submit" onclick="HandlePose('right_tree')" name = 'right_tree'>Right Warrior</button>
+        
+    </form> -->
+    <!-- 
+    <button onclick="HandlePose('downdog')">Downdog</button>
+    <button onclick="HandlePose('plank')">Plank</button>
+    <button onclick="HandlePose('left_tree')">Left Tree</button>
+    <button onclick="HandlePose('right_tree')">Right Tree</button>
+    <button onclick="HandlePose('left_warrior')">LeftWarrior</button>
+    <button onclick="HandlePose('right_tree')">Right Warrior</button> -->
+
+    
+    <!-- <div id="selected_pose"></div> -->
+
+    
+    <div>
+        <img id="display_video" src="{{ url_for('video_feed') }}" width="40%" >
+    </div>
+
+   
+
+    
+
+
+    <div id="feedback">data will be updated here</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+    <script>
+        console.log('hhhh')
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        console.log('ehllo working ', socket)
+
+        socket.on('text-update', data => {
+            document.getElementById('feedback').textContent = data.text;
+        });
+    </script>
+
+</body>
+</html>

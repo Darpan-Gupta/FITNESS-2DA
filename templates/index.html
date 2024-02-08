@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website - John Doe</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/styles.css')}}">
+</head>
+<body>
+    
+    <div id="wrapper">
+
+        <div class="container">
+            <div class="navbar">
+                
+                <div class="logo-container">
+                    <img src="{{url_for('static', filename = 'images/logo.png')}}" class="logo">
+                    <!-- <div class="logo-text">ohn Doe</div> -->
+                </div>
+                
+                <div class="nav-items">
+                    <div><a href="#poses">Poses</a></div>
+                    <div><a href="#skills">About us</a></div>
+                    <div><a href="#contactme">Contact Me</a></div>
+                </div>
+
+            </div>
+
+            <div class="hero-section">
+
+                <!-- <div class="faded-text">John Doe</div> -->
+    
+                <div class="hero-section-left">
+                    <!-- <div class="hero-section-heading">Hi, Fitness Enthusiasts</div> -->
+                    <div class="hero-section-heading" >Welcome to <span>Fitness2DA</span></div>
+                    <div class="hero-section-description">
+                      Where Strength Meets Alignment for Healthier You!
+                      
+                   </div>
+                    
+    
+                    
+                    
+                    <a href="#poses">
+                      <div class="btn-pink" id="btn">Get Started</div>
+                    </a>
+                    <div class="changing_desc" >
+                      <span class="role"></span>
+                  </div>
+    
+                </div>
+    
+                <div class="hero-section-right">
+                      <div class="user-image">
+                        <img src="{{url_for('static', filename = 'images/hero-sectionimage.png')}}" width="400" height="400" alt="" />
+                      </div>
+                </div>
+    
+            </div>
+        </div>
+
+        <div class="project-section" id="poses">
+            <h2 class="page-header">Yoga Poses</h2>
+
+            <div class="project-container">
+                <div class="project-card" id="project1">
+                    <div class="project-number project-number-right">01</div>
+                    <div class="poseimgdiv">
+                      <img src="{{url_for('static', filename = 'images/downdog-pose.png')}}" class="poseimg" width="300" height="300">
+                    </div>
+                    <div class="card_content">
+                      <h2>Downdog </h2>
+                      <p class="posecontent">"Stretch, strengthen, surrender: Down Dog, where balance meets bliss."</p>
+                      <button class="btn-pink btn-project" onclick="posetransfer('downdog')">Read More</button>
+                    </div>
+                   
+                </div>
+
+                <div class="project-card" id="project2">
+                  <div class="project-number project-number-left">02</div>
+                  <div class="poseimgdiv">
+                    <img src='{{url_for("static", filename = "images/plank-pose.png")}}' class="poseimg" width="300" height="300">
+                  </div>
+                    <div class="card_content">
+                      <h2>Plank</h2>
+                      <p class="posecontent">"Plank with purpose, sculpt with strength: Ignite your core, transform your body."</p>
+                      <button class="btn-pink btn-project" onclick="posetransfer('plank')">Read More</button>
+                    </div>  
+                  
+                </div>
+          
+                <div class="project-card" id="project3">
+                  <div class="project-number project-number-right">03</div>
+                  <div class="poseimgdiv">
+                    <img src="{{url_for('static', filename = 'images/warrior-pose.png')}}" class="poseimg" width="300" height="300">
+                  </div>
+                  <div class="card_content">
+                    <h2>Warrior</h2>
+                    <p class="posecontent">"Awaken your inner warrior." Within each of us lies a warrior spirit, a source of strength and resilience.</p>
+                    <button class="btn-pink btn-project" onclick="posetransfer('left_warrior')">Read More</button>
+                  </div>  
+                 
+                </div>
+          
+                <div class="project-card" id="project4">
+                  <div class="project-number project-number-left">04</div>
+                  <div class="poseimgdiv">
+                    <img src="{{url_for('static', filename = 'images/hero-sectionimage.png')}}" class="poseimg" width="300" height="300">
+                  </div>
+                  <div class="card_content">
+                    <h2>Tree </h2>
+                    <p class="posecontent">"Elevate your spirit, embrace the roots: Virakshi Tree Pose – where strength meets serenity."</p>
+                    <button class="btn-pink btn-project" onclick="posetransfer('left_tree')">Read More</button>
+                  </div>  
+                  
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="skills" class="container skills-container ">
+          <!-- <div class="skill-fade-text">Skills</div> -->
+
+          <div class="skill-container-left">
+            <h2 class="skill-heading">
+              <span class="caps">A</span>bout us
+              <br />
+              
+            </h2>
+
+            <div class="skill-subHeading">
+              <p>
+                Fitness2DA is a fitness trainer software solution that helps users perform postures correctly during their workouts by providing real-time feedback on the poses they are performing. It features a user-friendly interface that allows users of all fitness levels to track their progress. It also allows users to customize their workouts and track their progress over time. 
+
+              </p>
+              <p>
+                Fitness2DA is like a personal coach that is always available to provide guidance and support. It provides personalized feedback and allows users to track their progress and make adjustments accordingly.
+              </p>
+              
+            </div>
+          </div>
+
+          <div class="skill-container-right">
+           <img src="{{url_for('static', filename = 'images/Fitness2DA-logos.jpeg')}}" width="400" height="400">
+          </div>
+        
+        
+        
+        </div>
+
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
+  <script>
+    var typeData = new Typed(".role", {
+      strings: [
+        "ALIGN",
+        "STRENGTHEN",
+        "THRIVE"
+      ],
+      loop: true,
+      typeSpeed: 100,
+      backSpeed: 80,
+      backDelay: 1000,
+    });
+    // function posetransfer(pose){
+    //   localStorage.setItem('posename',pose);
+    //   console.log('hello');
+    //   window.location.href="{{url_for('description')}}";
+    // }
+  </script>
+
+
+  <script>
+    function posetransfer(pose) {
+      localStorage.setItem('posename',pose);
+      fetch('/description', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pose: pose }),
+      })
+        .then(response => {
+          // Redirect to the new page after successful response
+          window.location.href = "{{url_for('description')}}"; // Replace with the desired URL
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
+  </script>
+  <!-- <script>
+    // var posename=['tree','warrior','downdog','plank'];
+    function posetransfer(pose){
+      localStorage.setItem('posename',pose);
+      window.location.href="description.html";
+    }
+  </script> -->
+</body>
+</html>

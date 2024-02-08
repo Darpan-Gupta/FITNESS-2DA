@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pose Detection App</title>
+</head>
+
+<body>
+  <div>
+    <!-- <form action="/video" method="POST"> -->
+
+    <button onclick="HandlePose('downdog')">Downdog</button>
+    <button onclick="HandlePose('plank')">Plank</button>
+    <button onclick="HandlePose('left_tree')">Left Tree</button>
+    <button onclick="HandlePose('right_tree')">Right Tree</button>
+    <button onclick="HandlePose('left_warrior')">LeftWarrior</button>
+    <button onclick="HandlePose('right_tree')">Right Warrior</button>
+
+
+
+    <!-- </form> -->
+
+
+    <script>
+      function HandlePose(pose) {
+        fetch('/video', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ pose: pose }),
+        })
+          .then(response => {
+            // Redirect to the new page after successful response
+            window.location.href = '/video'; // Replace with the desired URL
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+
+    </script>
+
+  </div>
+</body>
+
+</html>

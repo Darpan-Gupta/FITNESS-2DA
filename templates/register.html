@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login|Fitness2DA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container ">
+        {% for message in get_flashed_messages() %}
+        {{ message }}
+        {% endfor %}
+        <div class="row justify-content-center ">
+            <div class="col-sm-6">
+                <h2>Register Form</h2>
+
+                <form action="/register" method="POST">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password:</label>
+                        <input type="password" class="form-control" name="confirm_password">
+                    </div>
+                    <div class="form-group">
+                        <label>Enter yout age:</label>
+                        <input type="number" class="form-control" name="age">
+                    </div>
+                    <div class="form-group">
+                        <label>Enter your weight:</label>
+                        <input type="number" class="form-control" name="weight">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

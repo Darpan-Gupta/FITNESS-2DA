@@ -1,124 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pose Detection</title>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/pose-detection.css' )}}">
     <script>
-         window.addEventListener("load", () => {
-        const posename = localStorage.getItem("posename");
-        console.log(posename);
-        title = document.querySelector(".heading");
-        pose_img=document.getElementById("refimg");
-        if (posename==="downdog"){
-            title.innerText="Downdog Pose";
-            pose_img.src="{{ url_for('static', filename = 'images/downdog-pose.png') }}";
-        }
-        if (posename==="plank"){
-            title.innerText="Plank Pose";
-            pose_img.src="{{ url_for('static', filename = 'images/plank-pose.png') }}";
-        }
-        if (posename==="left_warrior"){
-            title.innerText="Warrior Pose";
-            pose_img.src="{{ url_for('static', filename = 'images/warrior-pose.png') }}";
-        }
-        if (posename==="left_tree"){
-            title.innerText="Tree Pose";
-            pose_img.src="{{ url_for('static', filename = 'images/hero-sectionimage.png') }}";
-        }
-    
-    });
+        window.addEventListener("load", () => {
+            const posename = localStorage.getItem("posename");
+            console.log(posename);
+            title = document.querySelector(".heading");
+            pose_img = document.getElementById("refimg");
+            if (posename === "downdog") {
+                title.innerText = "Downdog Pose";
+                pose_img.src = "{{ url_for('static', filename = 'images/downdog-pose.png') }}";
+            }
+            if (posename === "plank") {
+                title.innerText = "Plank Pose";
+                pose_img.src = "{{ url_for('static', filename = 'images/plank-pose.png') }}";
+            }
+            if (posename === "left_warrior") {
+                title.innerText = "Warrior Pose";
+                pose_img.src = "{{ url_for('static', filename = 'images/warrior-pose.png') }}";
+            }
+            if (posename === "left_tree") {
+                title.innerText = "Tree Pose";
+                pose_img.src = "{{ url_for('static', filename = 'images/hero-sectionimage.png') }}";
+            }
+
+        });
     </script>
-    
-    
+
+
 </head>
+
 <body>
     <div class="wrapper">
         <div class="detection-page">
-        <div class="heading"></div>
-        <div class="container">
-            <div class="container-left">
-                <img src="" class="refimg" id="refimg" width="200" height="200">
-                <p class="fd-heading">Live Feedback</p>
-                <div class="feedback" id="feedback">
-                    
-                    Live feedback will be shown here</div>
-                               
-            </div>
+            <div class="heading"></div>
+            <div class="container">
+                <div class="container-left">
+                    <img src="" class="refimg" id="refimg" width="200" height="200">
+                    <p class="fd-heading">Live Feedback</p>
+                    <div class="feedback" id="feedback">
 
-            <div class="container-right">
-                <div class="cameraparent">
-                    
-                    <img src="{{ url_for('video_feed') }}"  class="cameraout">
+                        Live feedback will be shown here</div>
+
                 </div>
-                <div class="time">
-                    <div class="time-card">
-                        <p>Current Time</p>
-                         <p id="current_time"></p></div>
-                    <div class="time-card">
-                        <p>Max Time</p>
-                        <p id="max_time"></p>
+
+                <div class="container-right">
+                    <div class="cameraparent">
+
+                        <img src="{{ url_for('video_feed') }}" class="cameraout">
+                    </div>
+                    <div class="time">
+                        <div class="time-card">
+                            <p>Current Time</p>
+                            <p id="current_time"></p>
+                        </div>
+                        <div class="time-card">
+                            <p>Max Time</p>
+                            <p id="max_time"></p>
+                        </div>
+
                     </div>
 
-                </div>
 
-               
-               
-                
+
+
+                </div>
             </div>
         </div>
     </div>
-    </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
-    <script>
-        console.log('hhhh')
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
-        console.log('ehllo working ', socket)
-    
-        var correct_pose_start_time = 0;
-        var correct_pose_made = false;
-        
-        var current_correct_pose_time = 0;
-        var max_correct_pose_time = 0;
-        
-        socket.on('text-update', data => {
-            var feedback = data.text;
-            var feedback_tag=document.getElementById('feedback');
-            
-            if(feedback[0] == 'Correct Pose!!'){
-                feedback_tag.classList.add('active');
-                if(correct_pose_made){
-                    current_correct_pose_time = (new Date(Date()).getTime() -  correct_pose_start_time)/1000 ;
-                }
-                else{
-                    correct_pose_made = true;
-                    correct_pose_start_time = new Date(Date()).getTime();
+<script>
+    console.log('hhhh')
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    console.log('ehllo working ', socket)
+
+    var correct_pose_start_time = 0;
+    var correct_pose_made = false;
+
+    var current_correct_pose_time = 0;
+    var max_correct_pose_time = 0;
+    var prev_feedback = [];
+    var feedback = [];
+    var is_speaking = false;
+
+
+    socket.on('text-update', data => {
+        feedback = data.text;
+        var feedback_tag = document.getElementById('feedback');
+
+        if (feedback[0] == 'Correct Pose!!') {
+            feedback_tag.classList.add('active');
+            if (correct_pose_made) {
+                current_correct_pose_time = (new Date(Date()).getTime() - correct_pose_start_time) / 1000;
+            }
+            else {
+                correct_pose_made = true;
+                correct_pose_start_time = new Date(Date()).getTime();
+            }
+        }
+        else {
+            feedback_tag.classList.remove('active');
+            if (correct_pose_made) {
+                correct_pose_made = false;
+                max_correct_pose_time = Math.max(max_correct_pose_time, current_correct_pose_time);
+                current_correct_pose_time = 0;
+            }
+        }
+        document.getElementById('current_time').textContent = current_correct_pose_time;
+        document.getElementById('max_time').textContent = max_correct_pose_time;
+
+
+        // --------------- Preparing feedback for displaying on frontend
+
+        if (feedback[0] == "Correct Pose!!" || feedback[0] == "You are not correctly visible in camera") {
+            feedback_tag.textContent = feedback[0];
+        }
+        else {
+            var text = "Your " + feedback.join(' ') + " is not correctly positioned";
+            // console.log(text_2);
+            feedback_tag.textContent = text;
+        }
+
+
+
+        // ----------------  for voice output of the feedback
+
+        // --- if no voice output is currently playing and the current feedback is different from previous feedback that we call the function for giving the voice output on current feedback
+
+        if (is_speaking == false) {
+            if (prev_feedback.length != feedback.length) {
+                // console.log(prev_feedback);
+                voice_feedback();
+            }
+            else {
+                for (let i = 0; i < prev_feedback.length; i++) {
+                    if (prev_feedback[i] != feedback[i]) {
+                        // console.log(prev_feedback, "#####################");
+                        voice_feedback();
+                        break;
+                    }
                 }
             }
-            else{
-                feedback_tag.classList.remove('active');
-                if(correct_pose_made){
-                    correct_pose_made = false;
-                    max_correct_pose_time = Math.max(max_correct_pose_time, current_correct_pose_time);
-                    current_correct_pose_time = 0;
-                }
+        }
+
+
+        function voice_feedback() {
+            // Create a new SpeechSynthesisUtterance instance
+            // if (window.speechSynthesis.speaking) {
+            //     // Currently speaking, wait for completion before clearing
+            //     window.speechSynthesis.onend = () =>{
+            //         window.speechSynthesis.cancel();
+            //     }
+            // }
+
+            // if(is_speaking) return;
+
+            is_speaking = true;
+            prev_feedback = feedback;
+
+            // Cancel any remaining utterances in the queue
+            window.speechSynthesis.cancel();
+
+            // let text = "Your " + feedback.join(' ') + "is not correctly positioned";
+            if (feedback[0] == "Correct Pose!!" || feedback[0] == "You are not correctly visible in camera") {
+                text = feedback[0];
             }
-            document.getElementById('current_time').textContent = current_correct_pose_time;
-            document.getElementById('max_time').textContent = max_correct_pose_time;
-            
-    
-            // document.getElementById('feedback').textContent = data.text;
-            // console.log(data)
-            feedback_tag.textContent = "";
-            for(let i = 0; i < feedback.length; i++){
-                var newDiv = document.createElement("div");
-                newDiv.innerText = feedback[i];
-                // console.log(feedback[i]);
-                document.getElementById('feedback').appendChild(newDiv);
-            }
-        });
-    </script>
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            // utterance.onend =  window.speechSynthesis.cancel();
+
+            // Speak the text
+            window.speechSynthesis.speak(utterance);
+            // window.speechSynthesis.onend = () =>{
+            //     is_speaking = false;
+            // console.log("is speaking false done 1 ")
+
+            // }
+
+        }
+        // window.speechSynthesis.onend = () =>{
+        //     is_speaking = false;
+        //     console.log("is speaking false done")
+        // }
+        // console.log(is_speaking)
+        if (!window.speechSynthesis.speaking) { is_speaking = false }
+
+        //             // Call the function again after a delay (e.g., 1 second)
+        //             setInterval(() => {
+        //   is_speaking = false;
+        // }, 2000);
+    });
+</script>
 
 </html>
